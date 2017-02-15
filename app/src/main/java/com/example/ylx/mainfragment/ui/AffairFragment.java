@@ -1,13 +1,13 @@
-package com.example.ylx.mainfragment;
+package com.example.ylx.mainfragment.ui;
 
 import com.example.ylx.R;
 import com.example.ylx.base.BaseFragment;
 
-public class InformationFragment extends BaseFragment {
+public class AffairFragment extends BaseFragment {
 
     @Override
     protected int inflateView() {
-        return R.layout.fragment_information;
+        return R.layout.fragment_affair;
     }
 
     @Override

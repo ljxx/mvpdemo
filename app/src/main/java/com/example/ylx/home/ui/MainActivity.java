@@ -10,13 +10,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.ylx.R;
-import com.example.ylx.base.BaseActivity;
 import com.example.ylx.base.BaseFragmentActivity;
-import com.example.ylx.mainfragment.AffairFragment;
-import com.example.ylx.mainfragment.HomeFragment;
-import com.example.ylx.mainfragment.InformationFragment;
-import com.example.ylx.mainfragment.SafetyFragment;
-import com.example.ylx.mainfragment.UserFragment;
+import com.example.ylx.mainfragment.ui.AffairFragment;
+import com.example.ylx.mainfragment.ui.HomeFragment;
+import com.example.ylx.mainfragment.ui.InformationFragment;
+import com.example.ylx.mainfragment.ui.SafetyFragment;
+import com.example.ylx.mainfragment.ui.UserFragment;
 import com.example.ylx.utils.FinishUtils;
 
 import java.util.ArrayList;
