@@ -1,23 +1,23 @@
-package com.example.ylx.mainfragment.view;
+package com.example.ylx.mainfragment.presenter.presenterdao;
 
-import com.example.ylx.base.IBaseView;
 import com.example.ylx.mainfragment.model.bean.InformationBean;
 
 import java.util.List;
 
 /**
  * Created by yanglixiang on 2017/2/15.
- * UI界面抽象出来的接口
+ * 此接口作用是连接Model
  */
 
-public interface InformationView extends IBaseView {
+public interface InformationPresenter {
+
     /**
      * 显示数据
      */
     void showData(List<InformationBean> list);
 
     /**
-     * 无数据
+     * 提示无数据
      */
     void showEmpty();
 
@@ -25,4 +25,5 @@ public interface InformationView extends IBaseView {
      * 数据检测提示
      */
     void checkData(String msg);
+
 }
