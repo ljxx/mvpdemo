@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px50"
+    android:background="@color/main_header_bg"
+    android:orientation="horizontal"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        style="@style/main_header_linearlayout"
+        >
+        <ImageView
+            style="@style/main_header_image"
+            android:background="@drawable/scan_icon"
+            />
+        <TextView
+            style="@style/main_header_label"
+            android:text="@string/main_header_scan"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/px0"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1.0"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/main_header_search"
+            android:paddingLeft="@dimen/px30"
+            android:paddingTop="@dimen/px10"
+            android:paddingBottom="@dimen/px10"
+            android:paddingRight="@dimen/px10"
+            android:textSize="@dimen/text_size_12"
+            android:focusable="false"
+            android:background="@drawable/main_search_edit_bg"
+            />
+        <ImageView
+            android:layout_width="@dimen/px20"
+            android:layout_height="@dimen/px20"
+            android:layout_margin="@dimen/px8"
+            android:background="@drawable/ic_search"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/main_header_linearlayout"
+        >
+        <ImageView
+            style="@style/main_header_image"
+            android:background="@drawable/icon_mesage"
+            />
+        <TextView
+            style="@style/main_header_label"
+            android:text="@string/main_header_message"
+            />
+    </LinearLayout>
+
+    <!--<Button
+        android:id="@+id/mBack"
+        style="@style/title_base_button"
+        android:background="@drawable/btn_back"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/mTitle"
+        style="@style/main_header_title"
+        android:layout_centerInParent="true"
+        android:text="主页main"
+        />-->
+
+</LinearLayout>
