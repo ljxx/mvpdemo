@@ -2,6 +2,7 @@ package com.example.ylx.mainfragment.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,7 +20,9 @@ import com.example.ylx.mainfragment.presenter.presenterdao.InformationPresenter;
 import com.example.ylx.mainfragment.presenter.presenterimpl.InformationPresenterImpl;
 import com.example.ylx.mainfragment.ui.adapter.InformationAdapter;
 import com.example.ylx.mainfragment.view.InformationView;
+import com.example.ylx.other.EndlessRecyclerOnScrollListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InformationFragment extends BaseMVPFragment<InformationView, InformationPresenterImpl> implements InformationView {
@@ -30,7 +33,8 @@ public class InformationFragment extends BaseMVPFragment<InformationView, Inform
     private InformationAdapter mAdapter;
     private Button btn_load;
 
-    private List<InformationBean> mList;
+    private List<InformationBean> mDataList;
+    private LinearLayoutManager mLiearLayoutManager;
 
     @Override
     protected int inflateView() {
@@ -44,6 +48,16 @@ public class InformationFragment extends BaseMVPFragment<InformationView, Inform
         llLoading = (LinearLayout) mView.findViewById(R.id.ll_loading);
         btn_load = (Button) mView.findViewById(R.id.btn_load);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.mRecyclerView);
+
+        mDataList = new ArrayList<InformationBean>();
+        mLiearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLiearLayoutManager);// 布局管理器,一定要设置布局，否则不会显示
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL)); //设置分割线
+        mRecyclerView.setHasFixedSize(true);// 如果Item够简单，高度是确定的，打开FixSize将提高性能。
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());// 设置Item默认动画，加也行，不加也行。
+        mAdapter = new InformationAdapter(mDataList);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -54,6 +68,18 @@ public class InformationFragment extends BaseMVPFragment<InformationView, Inform
                 String mPage = etPage.getText().toString().trim();
                 System.out.println("=========点击加载了====Page====" + mPage);
                 getPresenter().loadJoke(mPage);
+            }
+        });
+
+        /**
+         * 上啦加载更多
+         */
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(mLiearLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                System.out.println("=========点击加载了====currentPage====" + currentPage);
+                etPage.setText(currentPage+"");
+                getPresenter().loadJoke(String.valueOf(currentPage));
             }
         });
     }
@@ -68,16 +94,19 @@ public class InformationFragment extends BaseMVPFragment<InformationView, Inform
     @Override
     public void showData(List<InformationBean> list) {
         llEmpty.setVisibility(View.GONE);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));// 布局管理器,一定要设置布局，否则不会显示
-        mRecyclerView.setHasFixedSize(true);// 如果Item够简单，高度是确定的，打开FixSize将提高性能。
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());// 设置Item默认动画，加也行，不加也行。
-        mAdapter = new InformationAdapter(list);
-        mRecyclerView.setAdapter(mAdapter);
+        mDataList.addAll(list);
+        mAdapter.setList(mDataList);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showEmpty() {
-        llEmpty.setVisibility(View.VISIBLE);
+        String mPage = etPage.getText().toString().trim();
+        if(mPage.equals("1")){
+            llEmpty.setVisibility(View.VISIBLE);
+        } else {
+            llEmpty.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -87,7 +116,12 @@ public class InformationFragment extends BaseMVPFragment<InformationView, Inform
 
     @Override
     public void showLoading() {
-        llLoading.setVisibility(View.VISIBLE);
+        String mPage = etPage.getText().toString().trim();
+        if(mPage.equals("1")){
+            llLoading.setVisibility(View.VISIBLE);
+        } else {
+            llLoading.setVisibility(View.GONE);
+        }
     }
 
     @Override

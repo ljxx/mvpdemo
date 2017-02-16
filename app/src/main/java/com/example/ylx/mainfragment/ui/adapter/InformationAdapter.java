@@ -36,6 +36,10 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationHolder> 
         this.mList = list;
     }
 
+    public void setList(List<InformationBean> mList){
+        this.mList = mList;
+    }
+
     @Override
     public InformationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //从parent得到Context，没必要再传一个Context参数
